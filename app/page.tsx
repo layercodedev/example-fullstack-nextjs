@@ -7,7 +7,7 @@ import { MicrophoneButton } from "./ui/MicrophoneButton";
 export default function Home() {
   const { agentAudioAmplitude, status, triggerUserTurnStarted, triggerUserTurnFinished } = useLayercodePipeline({
     pipelineId: process.env.NEXT_PUBLIC_LAYERCODE_PIPELINE_ID!,
-    authorizeSessionEndpoint: "/api/agent/authorize", // The useLayercodePipeline hook calls this api route on start, which creates a new session in Layercode and retrieves the client session key which is require for the frontend client to connect to your Layercode voice pipelines.
+    authorizeSessionEndpoint: "/api/authorize", // The useLayercodePipeline hook calls this api route on start, which creates a new session in Layercode and retrieves the client session key which is require for the frontend client to connect to your Layercode voice pipelines.
     onDataMessage: (data) => {
       console.log("Received data msg", data);
     }, // If you return json data objects from your webhook, they are forwarded to the client and send to this callback.

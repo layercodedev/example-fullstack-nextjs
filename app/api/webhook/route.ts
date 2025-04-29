@@ -19,6 +19,7 @@ const WELCOME_MESSAGE = "Welcome to Layercode. How can I help you today?";
 // POST request handler for Layercode incoming webhook, per turn of the conversation
 export const POST = async (request: Request) => {
   const requestBody = await request.json();
+  console.log("Request body received from Layercode", requestBody);
   const {
     session_id, // Session ID is unique per conversation. Use this to know which conversation a webhook belongs to.
     text, // The user's transcribed message query
@@ -28,12 +29,12 @@ export const POST = async (request: Request) => {
   // Get or create the message list for this session
   let messages = sessionMessages[session_id] || [];
   // Add user message
-  messages.push({ role: "user", content: text });
+  messages.push({ role: "user", content: [{ type: "text", text }] });
 
   if (type === "session.start") {
     return streamResponse(requestBody, async ({ stream }) => {
       stream.tts(WELCOME_MESSAGE);
-      messages.push({ role: "assistant", content: WELCOME_MESSAGE });
+      messages.push({ role: "assistant", content: [{ type: "text", text: WELCOME_MESSAGE }] });
       stream.end();
     });
   }
@@ -46,6 +47,7 @@ export const POST = async (request: Request) => {
       onFinish: async ({ response }) => {
         // After the response has been generated and streamed, finally save it to the message list for this session
         messages.push(...response.messages);
+        console.log("Current message history for session", session_id, JSON.stringify(messages, null, 2));
         sessionMessages[session_id] = messages;
         stream.end(); // We must call stream.end() here to tell Layercode that the assistant's response has finished
       },
