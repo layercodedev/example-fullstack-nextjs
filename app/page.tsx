@@ -14,11 +14,14 @@ export default function Home() {
   });
 
   return (
-    <div className="fixed bottom-4 w-full px-8 grid grid-cols-3 items-center z-50">
-      <ConnectionStatusIndicator status={status} />
-      <div className="justify-self-center flex gap-4 items-center rounded-full border border-gray-100 dark:border-gray-900 py-2 pr-2 pl-3 bg-white dark:bg-gray-950 shadow-md dark:shadow-gray-900/30">
-        <AudioVisualization amplitude={agentAudioAmplitude} />
-        <MicrophoneButton triggerUserTurnStarted={triggerUserTurnStarted} triggerUserTurnFinished={triggerUserTurnFinished} />
+    <div className="w-full min-h-[80vh] flex items-center justify-center">
+      <div className="w-96 h-96 border border-white rounded-lg flex flex-col gap-20 items-center justify-center">
+        <h1 className="text-gray-800 text-xl font-bold">Voice Agent Demo</h1>
+        <AudioVisualization amplitude={agentAudioAmplitude} height={75} />
+        <div className="flex flex-col gap-4 items-center justify-center">
+          <MicrophoneButton triggerUserTurnStarted={triggerUserTurnStarted} triggerUserTurnFinished={triggerUserTurnFinished} />
+          <ConnectionStatusIndicator status={status} />
+        </div>
       </div>
     </div>
   );
