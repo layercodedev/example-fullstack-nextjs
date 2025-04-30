@@ -1,10 +1,10 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback } from 'react';
 
 export function useButtonHold({
   onPressStart,
   onPressEnd,
   minHoldDuration = 150,
-  key = "Space",
+  key = 'Space',
 }: {
   onPressStart: () => void;
   onPressEnd: () => void;
@@ -48,12 +48,12 @@ export function useButtonHold({
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("keyup", handleKeyUp);
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("keyup", handleKeyUp);
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
     };
   }, [key, handlePressStart, handlePressEnd]);
 

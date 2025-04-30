@@ -1,5 +1,5 @@
 // Simple wavform visualization to show when the voice AI is speaking
-import React from "react";
+import React from 'react';
 
 export function AudioVisualization({
   amplitude,
@@ -37,17 +37,17 @@ export function AudioVisualization({
             <div
               className="bg-[#FF5B41] dark:bg-[#FF7B61] transition-all duration-20"
               style={{
-                width: "100%",
+                width: '100%',
                 height: `${barWidth}px`,
-                borderTopLeftRadius: "9999px",
-                borderTopRightRadius: "9999px",
+                borderTopLeftRadius: '9999px',
+                borderTopRightRadius: '9999px',
               }}
             />
             {/* Middle straight section */}
             <div
               className="bg-[#FF5B41] dark:bg-[#FF7B61] transition-all duration-20"
               style={{
-                width: "100%",
+                width: '100%',
                 height: `calc(100% - ${2 * barWidth}px)`,
                 borderRadius: 0,
               }}
@@ -56,10 +56,10 @@ export function AudioVisualization({
             <div
               className="bg-[#FF5B41] dark:bg-[#FF7B61] transition-all duration-20"
               style={{
-                width: "100%",
+                width: '100%',
                 height: `${barWidth}px`,
-                borderBottomLeftRadius: "9999px",
-                borderBottomRightRadius: "9999px",
+                borderBottomLeftRadius: '9999px',
+                borderBottomRightRadius: '9999px',
               }}
             />
           </div>
