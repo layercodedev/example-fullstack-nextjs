@@ -32,13 +32,15 @@ Note: Layercode needs to send a webhook to your backend to generate agent respon
 3. Edit your .env environment variables. You'll need to add:
    - `GOOGLE_GENERATIVE_AI_API_KEY` - Your Google AI API key
    - `LAYERCODE_API_KEY` - Your Layercode API key found in the Layercode dashboard settings page
-   - `NEXT_PUBLIC_LAYERCODE_PIPELINE_ID` - The Layercode pipeline ID for your voice agent
+   - `NEXT_PUBLIC_LAYERCODE_PIPELINE_ID` - The Layercode pipeline ID for your voice agent. Find this id in the (Layercode dashboard)[https://dash.layercode.com/]
 4. Run the development server with `npm run dev`.
 5. Setup a tunnel (we recommend cloudflared which is free for dev) to your localhost with `npx cloudflared tunnel --url http://localhost:3000`
 6. Note down the tunnel URL printed in the terminal, e.g. `https://my-tunnel-name.trycloudflare.com`, then add on the webhook url `/api/webhook` to make the full URL `https://my-tunnel-name.trycloudflare.com/api/webhook`
 7. Goto the (Layercode dashboard)[https://dash.layercode.com/], click on your pipeline, clicked the edit icon in the 'Your Backend' box, and enter the webhook URL: `https://my-tunnel-name.trycloudflare.com/api/webhook`.
 8. NOTE: every time you restart the cloudflared tunnel, the assigned webhook URL domain name will change. So you'll need to update the webhook URL in the Layercode dashboard again.
 9. Now open your browser and start speaking to your voice agent!
+
+Tip: If you don't hear any response from your voice agent, check the Webhook Logs tab in the (Layercode dashboard)[https://dash.layercode.com/] to see the response from your backend.
 
 ## License
 
