@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { streamText, CoreMessage } from 'ai';
-import { streamResponse } from '@layercode/node-server-sdk';
+import { streamResponse, verifySignature } from '@layercode/node-server-sdk';
 
 const google = createGoogleGenerativeAI({
   apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
@@ -19,6 +19,16 @@ const WELCOME_MESSAGE = 'Welcome to Layercode. How can I help you today?';
 // POST request handler for Layercode incoming webhook, per turn of the conversation
 export const POST = async (request: Request) => {
   const requestBody = await request.json();
+  const signature = request.headers.get('layercode-signature') || '';
+  const secret = process.env.LAYERCODE_WEBHOOK_SECRET || '';
+  const payload = JSON.stringify(requestBody);
+  const isValid = verifySignature({ payload, signature, secret });
+
+  if (!isValid) {
+    console.error('Invalid signature', signature, secret, payload);
+    return new Response('Unauthorized', { status: 401 });
+  }
+
   console.log('Request body received from Layercode', requestBody);
   const {
     session_id, // Session ID is unique per conversation. Use this to know which conversation a webhook belongs to.

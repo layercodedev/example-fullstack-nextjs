@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^1.2.14",
-    "@layercode/node-server-sdk": "^1.0.1",
+    "@layercode/node-server-sdk": "^1.1.0",
     "@layercode/react-sdk": "^1.0.11",
     "ai": "^4.3.10",
     "next": "15.3.1",

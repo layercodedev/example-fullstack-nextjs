@@ -1,47 +1,133 @@
-# Layercode Voice Agent Example
+# Layercode Voice Agent Example (Next.js + Hono)
 
-This open source project demonstrates how to build a real-time voice agent using [Layercode](https://layercode.com) with a Next.js frontend and backend.
+A full-stack TypeScript application built with **Next.js** and **Hono** that creates a real-time voice agent using Layercode. The frontend handles browser-based voice interaction, while the backend streams text-to-speech-ready replies from Google Gemini over Server-Sent Events (SSE).
 
-## Features
+---
+
+## ✨ Features
 
 - **Browser-based Voice Interaction:** Users can speak to the agent directly from their browser.
 - **Real-time Transcription & Response:** Speech is transcribed and processed in real time.
-- **LLM Integration:** User queries are sent to an LLM using [Vercel AI SDK](https://vercel.com/docs/ai-sdk) and [Gemini Flash 2.0](https://ai.google.dev/gemini-api/docs/models/gemini).
+- **LLM Integration:** Uses [Vercel AI SDK](https://vercel.com/docs/ai-sdk) with [Gemini Flash 2.0](https://ai.google.dev/gemini-api/docs/models/gemini).
 - **Streaming Responses:** LLM responses are streamed back, converted to speech, and played to the user.
+- **Secure Webhook Handling:** Built-in webhook signature verification to ensure requests are coming from Layercode.
+- **Modern Stack:** Next.js, Hono, HTMX, Tailwind, DaisyUI, Cloudflare Workers.
 
-## How It Works
+---
 
-1. **Frontend:**  
-   Uses [`@layercode/react-sdk`](https://www.npmjs.com/package/@layercode/react-sdk) to connect the browser's microphone and speaker to a Layercode voice pipeline.
+## 🚀 Quick Start
 
-2. **Transcription & Webhook:**  
-   Layercode transcribes user speech. For each complete message, it sends a webhook containing the transcribed text to a Next.js API route.
+> Requires **Node.js 18+**, a valid **Gemini API key**, a **Layercode API key**, and a **Layercode webhook secret**.
 
-3. **Backend Processing:**  
-   The Next.js API route uses [`@layercode/node-server-sdk`](https://www.npmjs.com/package/@layercode/node-server-sdk) to handle the webhook. The transcribed text is sent to the LLM (Gemini Flash 2.0 via Vercel AI SDK).
+```bash
+# Install dependencies
+npm install
 
-4. **Streaming & Speech Synthesis:**  
-   As soon as the LLM starts generating a response, the backend streams the output back as SSE messags to Layercode, which converts it to speech and delivers it to the frontend for playback in realtime.
+# Start local dev server
+npm run dev
 
-## Getting Started
+# Build for production
+npm run build
+```
 
-Note: Layercode needs to send a webhook to your backend to generate agent responses. So if you're running this locally, you'll need to setup a tunnel to your localhost. See step 5 onwards below.
+---
 
-1. Clone this repository.
-2. Install dependencies with `npm install`.
-3. Edit your .env environment variables. You'll need to add:
-   - `GOOGLE_GENERATIVE_AI_API_KEY` - Your Google AI API key
-   - `LAYERCODE_API_KEY` - Your Layercode API key found in the Layercode dashboard settings page
-   - `NEXT_PUBLIC_LAYERCODE_PIPELINE_ID` - The Layercode pipeline ID for your voice agent. Find this id in the (Layercode dashboard)[https://dash.layercode.com/]
-4. Run the development server with `npm run dev`.
-5. Setup a tunnel (we recommend cloudflared which is free for dev) to your localhost with `npx cloudflared tunnel --url http://localhost:3000`
-6. Note down the tunnel URL printed in the terminal, e.g. `https://my-tunnel-name.trycloudflare.com`, then add on the webhook url `/api/webhook` to make the full URL `https://my-tunnel-name.trycloudflare.com/api/webhook`
-7. Goto the (Layercode dashboard)[https://dash.layercode.com/], click on your pipeline, clicked the edit icon in the 'Your Backend' box, and enter the webhook URL: `https://my-tunnel-name.trycloudflare.com/api/webhook`.
-8. NOTE: every time you restart the cloudflared tunnel, the assigned webhook URL domain name will change. So you'll need to update the webhook URL in the Layercode dashboard again.
-9. Now open your browser and start speaking to your voice agent!
+## 🔧 Configuration
 
-Tip: If you don't hear any response from your voice agent, check the Webhook Logs tab in the (Layercode dashboard)[https://dash.layercode.com/] to see the response from your backend.
+Add a `.env` file (or use `.env.example` as a template):
 
-## License
+```env
+GOOGLE_GENERATIVE_AI_API_KEY=your_api_key_here
+LAYERCODE_API_KEY=your_layercode_api_key_here
+NEXT_PUBLIC_LAYERCODE_PIPELINE_ID=your_pipeline_id_here
+LAYERCODE_WEBHOOK_SECRET=your_webhook_secret_here
+```
+
+---
+
+## 🗺️ API
+
+### POST `/api/webhook`
+
+Receives transcribed text from Layercode and streams responses back.
+
+#### Request JSON
+
+```jsonc
+{
+  "text": "Hello, how are you?",
+  "type": "message", // "message" or "session.start"
+  "session_id": "sess-1234",
+  "turn_id": "turn-0001"
+}
+```
+
+#### Streaming Response (SSE)
+
+All streaming and SSE response handling is managed by [`@layercode/node-server-sdk`](https://www.npmjs.com/package/@layercode/node-server-sdk), which provides a simple interface for sending TTS and data chunks to the client.
+
+```
+data: {"type":"response.tts","content":"Hi there!","turn_id":"turn-0001"}
+
+data: {"type":"response.end","turn_id":"turn-0001"}
+```
+
+| Type           | Description                         |
+| -------------- | ----------------------------------- |
+| `response.tts` | A partial or complete chunk of text |
+| `response.end` | Indicates the turn has finished     |
+
+---
+
+## 🧩 Project Structure
+
+| Path              | Purpose                              |
+| ----------------- | ------------------------------------ |
+| `app/`            | Next.js app directory                |
+| `app/api/`        | API routes (webhook, authorize)      |
+| `app/components/` | React components                     |
+| `app/page.tsx`    | Main page component                  |
+| `.env`            | **Not committed** – environment vars |
+| `README.md`       | You are here                         |
+
+---
+
+## 🛠️ Dependencies
+
+- `next` – React framework
+- `hono` – web framework for API routes
+- `@ai-sdk/google` – Gemini SDK
+- `ai` – streaming and message handling
+- `@layercode/react-sdk` – browser voice interaction
+- `@layercode/node-server-sdk` – SSE streaming and response handling
+- `tailwindcss` / `daisyui` – styling
+
+All pinned in `package.json`.
+
+---
+
+## 🩹 Troubleshooting
+
+| Symptom                                   | Fix                             |
+| ----------------------------------------- | ------------------------------- |
+| `GOOGLE_GENERATIVE_AI_API_KEY is not set` | Add to `.env`                   |
+| `LAYERCODE_API_KEY is not set`            | Add to `.env`                   |
+| `LAYERCODE_WEBHOOK_SECRET is not set`     | Add to `.env`                   |
+| No voice response                         | Check webhook logs in dashboard |
+| Tunnel URL changed                        | Update webhook URL in dashboard |
+
+---
+
+## 🔐 Security Notes
+
+- Do **not** commit your `.env` / secrets.
+- Use HTTPS & proper auth in production.
+- Always verify webhook signatures.
+- Keep API keys and webhook secrets secure.
+- Implement proper error handling.
+
+---
+
+## 📝 License
 
 MIT
