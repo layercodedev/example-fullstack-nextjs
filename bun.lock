@@ -5,7 +5,7 @@
       "name": "example-fullstack-nextjs",
       "dependencies": {
         "@ai-sdk/google": "^1.2.14",
-        "@layercode/node-server-sdk": "^1.0.1",
+        "@layercode/node-server-sdk": "^1.1.0",
         "@layercode/react-sdk": "^1.0.11",
         "ai": "^4.3.10",
         "next": "15.3.1",
@@ -112,7 +112,7 @@
 
     "@layercode/js-sdk": ["@layercode/js-sdk@1.0.10", "", {}, "sha512-Jf5YFEnECgwnZY86Px982ZuZIlFt5Hg+b6w1EehPSZ0fhVpcTXlGQLuFt4aLuTmN0ZYGXrYYFUYsgiOefsgW9w=="],
 
-    "@layercode/node-server-sdk": ["@layercode/node-server-sdk@1.0.1", "", {}, "sha512-MwE8i+6/kjXUDo0K1FLHpmaZY4GNVyJ1+tzhijdhHNoU2MpqWYNb2ucqOgnbfDJv2QcZGyObjDhBcuSgURzxbA=="],
+    "@layercode/node-server-sdk": ["@layercode/node-server-sdk@1.1.0", "", {}, "sha512-XcCD2U6ZVj3PdukLzzv6xuXuSxYcgHewF06pDCi7vDV/AXBsli6NWQgnOCXawyI+dkm2oCCA9/nGFWwO92H1fg=="],
 
     "@layercode/react-sdk": ["@layercode/react-sdk@1.0.11", "", { "dependencies": { "@layercode/js-sdk": "^1.0.10" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-oguYTiHTDkkiKRgcr5Fr203rT5fWY1cLp0mb98oYA4FSdPS5M6amQOfIoTHTow5bI1rIgFwj3LPPswqYc7yZZw=="],
 
@@ -819,8 +819,6 @@
     "eslint-plugin-import/debug": ["debug@3.2.7", "", { "dependencies": { "ms": "^2.1.1" } }, "sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ=="],
 
     "eslint-plugin-react/resolve": ["resolve@2.0.0-next.5", "", { "dependencies": { "is-core-module": "^2.13.0", "path-parse": "^1.0.7", "supports-preserve-symlinks-flag": "^1.0.0" }, "bin": "bin/resolve" }, "sha512-U7WjGVG9sH8tvjW5SmGbQuui75FiyjAX72HX15DwBBwF9dNiQZRQAg9nnPhYy+TUnE0+VcrttuvNI8oSxZcocA=="],
-
-    "eslint-plugin-react/semver": ["semver@6.3.1", "", { "bin": "bin/semver.js" }, "sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA=="],
 
     "fast-glob/glob-parent": ["glob-parent@5.1.2", "", { "dependencies": { "is-glob": "^4.0.1" } }, "sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow=="],
 
