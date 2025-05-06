@@ -66,7 +66,7 @@ export const POST = async (request: Request) => {
       },
     });
     // At any time, you can also return json objects, which will be forwarded directly to the client. Use this to create dynamic UI that is synchnised with the voice response.
-    stream.data({ uiState: { aiIsThinking: true } });
+    stream.data({ aiIsThinking: true });
     // Here we return the textStream chunks as SSE messages to Layercode, to be spoken to the user
     await stream.ttsTextStream(textStream);
   });

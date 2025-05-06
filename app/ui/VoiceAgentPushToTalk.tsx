@@ -3,7 +3,7 @@ import { AudioVisualization } from './AudioVisualization';
 import { ConnectionStatusIndicator } from './ConnectionStatusIndicator';
 import { MicrophoneButtonPushToTalk } from './MicrophoneButtonPushToTalk';
 
-export default function VoiceAgent() {
+export default function VoiceAgentPushToTalk() {
   const { agentAudioAmplitude, status, triggerUserTurnStarted, triggerUserTurnFinished } = useLayercodePipeline({
     pipelineId: process.env.NEXT_PUBLIC_LAYERCODE_PIPELINE_ID!,
     authorizeSessionEndpoint: '/api/authorize', // The useLayercodePipeline hook calls this api route on start, which creates a new session in Layercode and retrieves the client session key which is require for the frontend client to connect to your Layercode voice pipelines.
