@@ -1,13 +1,4 @@
-// Simple wavform visualization to show when the voice AI is speaking
-import React from 'react';
-
-export function AudioVisualization({
-  amplitude,
-  height = 46, // default for backward compatibility
-}: {
-  amplitude: number;
-  height?: number;
-}) {
+export function AudioVisualization({ amplitude, height = 46 }: { amplitude: number; height?: number }) {
   // Calculate the height of each bar based on amplitude
   const maxHeight = height;
   const minHeight = Math.floor(height / 6);
