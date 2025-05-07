@@ -39,7 +39,7 @@ Note: Layercode needs to send a webhook to your backend to generate agent respon
 3. Edit your .env environment variables. You'll need to add:
    - `GOOGLE_GENERATIVE_AI_API_KEY` - Your Google AI API key
    - `LAYERCODE_API_KEY` - Your Layercode API key found in the [Layercode dashboard settings](https://dash.layercode.com/settings)
-   - `LAYERCODE_WEBHOOK_SECRET` - Your Layercode pipeline's webhook secret, found in the [Layercode dashboard](https://dash.layercode.com (goto your pipeline, click Edit in the Your Backend Box and copy the webhook secret shown)
+   - `LAYERCODE_WEBHOOK_SECRET` - Your Layercode pipeline's webhook secret, found in the [Layercode dashboard](https://dash.layercode.com) (goto your pipeline, click Edit in the Your Backend Box and copy the webhook secret shown)
    - `NEXT_PUBLIC_LAYERCODE_PIPELINE_ID` - The Layercode pipeline ID for your voice agent. Find this id in [Layercode dashboard](https://dash.layercode.com/)
 4. Run the development server with `npm run dev`.
 5. If running locally, setup a tunnel (we recommend cloudflared which is free for dev) to your localhost so the Layercode webhook can reach your backend. Follow our tunneling guide here: [https://docs.layercode.com/tunnelling](https://docs.layercode.com/tunnelling)
