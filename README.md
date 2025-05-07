@@ -2,8 +2,6 @@
 
 This open source project demonstrates how to build a real-time voice agent using [Layercode](https://layercode.com) Voice Pipelines, with a Next.js frontend and backend.
 
-![Voice Agent Demo](https://mintlify.s3.us-west-1.amazonaws.com/layercode/images/arch-diagram.png)
-
 Read the companion guides:
 
 - [Layercode Next.js Webhook Agent Backend](https://docs.layercode.com/backend-guides/next-js)
