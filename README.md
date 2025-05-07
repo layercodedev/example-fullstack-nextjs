@@ -12,9 +12,8 @@ Read the companion guides:
 ## Features
 
 - **Browser-based Voice Interaction:** Users can speak to the agent directly from their browser.
-- **Real-time Transcription & Response:** Speech is transcribed and processed in real time.
 - **LLM Integration:** User queries are sent to an LLM using [Vercel AI SDK](https://vercel.com/docs/ai-sdk) and [Gemini Flash 2.0](https://ai.google.dev/gemini-api/docs/models/gemini).
-- **Streaming Responses:** LLM responses are streamed back, converted to speech, and played to the user.
+- **Streaming Responses:** LLM responses are streamed back, where Layercode handles the conversion to speech and playback to the user.
 
 ## How It Works
 
@@ -43,9 +42,8 @@ Note: Layercode needs to send a webhook to your backend to generate agent respon
    - `NEXT_PUBLIC_LAYERCODE_PIPELINE_ID` - The Layercode pipeline ID for your voice agent. Find this id in [Layercode dashboard](https://dash.layercode.com/)
 4. Run the development server with `npm run dev`.
 5. If running locally, setup a tunnel (we recommend cloudflared which is free for dev) to your localhost so the Layercode webhook can reach your backend. Follow our tunneling guide here: [https://docs.layercode.com/tunnelling](https://docs.layercode.com/tunnelling)
-6. Now open http://localhost:3000 in your browser and start speaking to your voice agent!
-
-Tip: If you don't hear any response from your voice agent, check the Webhook Logs tab in your pipeline in the [Layercode dashboard](https://dash.layercode.com/) to see the response from your backend.
+6. If you didn't follow the tunneling guide, and are deploying this example to the internet, remember to set the Webhook URL in the [Layercode dashboard](https://dash.layercode.com/) (click Edit in the Your Backend box) to your publically accessible backend URL.
+7. Now open http://localhost:3000 in your browser and start speaking to your voice agent!
 
 ## Extra features
 
