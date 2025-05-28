@@ -6,7 +6,7 @@
       "dependencies": {
         "@ai-sdk/google": "^1.2.14",
         "@layercode/node-server-sdk": "^1.2.0",
-        "@layercode/react-sdk": "^1.0.14",
+        "@layercode/react-sdk": "^1.0.17",
         "ai": "^4.3.10",
         "next": "15.3.1",
         "react": "^19.0.0",
@@ -110,11 +110,11 @@
 
     "@img/sharp-win32-x64": ["@img/sharp-win32-x64@0.34.1", "", { "os": "win32", "cpu": "x64" }, "sha512-hw1iIAHpNE8q3uMIRCgGOeDoz9KtFNarFLQclLxr/LK1VBkj8nby18RjFvr6aP7USRYAjTZW6yisnBWMX571Tw=="],
 
-    "@layercode/js-sdk": ["@layercode/js-sdk@1.0.14", "", { "dependencies": { "@ricky0123/vad-web": "^0.0.24", "onnxruntime-web": "^1.21.1" } }, "sha512-zB+yxEJpMhm0ku5U70DZcWjGA9V9vwLtCMp9xO/NFdvhz+B+e+oKx4tCBeoQDxVMF8cKKKBa2Xb5qTZaXOH5hw=="],
+    "@layercode/js-sdk": ["@layercode/js-sdk@1.0.17", "", { "dependencies": { "@ricky0123/vad-web": "^0.0.24", "onnxruntime-web": "^1.21.1" } }, "sha512-/Nsylt+ogJM/trrQzfql1ohSN6Eisb9ZhTPIT/38N4l8dH0VkoxjVW6cNmfYifXhvbZvwacTfHT4KwAfTGco4g=="],
 
     "@layercode/node-server-sdk": ["@layercode/node-server-sdk@1.2.1", "", {}, "sha512-Fr06CPzY5UQ6veXxh1jMRdmweMr4RlT+U3Y44H7PK74opZGY9I34rhjsUWRTGLzYEPN8lyVXwatJCpMl/Tlfdw=="],
 
-    "@layercode/react-sdk": ["@layercode/react-sdk@1.0.14", "", { "dependencies": { "@layercode/js-sdk": "^1.0.14" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-wNaXs/xHQs00YpD5nU/VU3ovRRD+lAhOEZPz9P+KzmjJ2J63GOBUuBBYOKEcpZ0q6Y91xbOwoA5M4DRXlhCfjQ=="],
+    "@layercode/react-sdk": ["@layercode/react-sdk@1.0.17", "", { "dependencies": { "@layercode/js-sdk": "^1.0.17" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-aAAJCsV4DH8sQd75B5Kiv9NOGv39p8vMGmhtCjj+wZ4+GRsRpZ65fngTKXynonwCahegM1RhKqFaM3xH8BgOvg=="],
 
     "@napi-rs/wasm-runtime": ["@napi-rs/wasm-runtime@0.2.9", "", { "dependencies": { "@emnapi/core": "^1.4.0", "@emnapi/runtime": "^1.4.0", "@tybys/wasm-util": "^0.9.0" } }, "sha512-OKRBiajrrxB9ATokgEQoG87Z25c67pCpYcCwmXYX8PBftC9pBfN18gnm/fh1wurSLEKIAt+QRFLFCQISrb66Jg=="],
 
