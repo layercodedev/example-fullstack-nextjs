@@ -1,12 +1,12 @@
-import { useLayercodePipeline } from '@layercode/react-sdk';
+import { useLayercodeAgent } from '@layercode/react-sdk';
 import { AudioVisualization } from './AudioVisualization';
 import { ConnectionStatusIndicator } from './ConnectionStatusIndicator';
 import { MicrophoneIcon } from '../icons/MicrophoneIcon';
 
 export default function VoiceAgent() {
-  const { agentAudioAmplitude, status } = useLayercodePipeline({
-    pipelineId: process.env.NEXT_PUBLIC_LAYERCODE_PIPELINE_ID!,
-    authorizeSessionEndpoint: '/api/authorize', // The useLayercodePipeline hook calls this api route on start, which creates a new session in Layercode and retrieves the client session key which is require for the frontend client to connect to your Layercode voice pipelines.
+  const { agentAudioAmplitude, status } = useLayercodeAgent({
+    agentId: process.env.NEXT_PUBLIC_LAYERCODE_AGENT_ID!,
+    authorizeSessionEndpoint: '/api/authorize', // The useLayercodeAgent hook calls this api route on start, which creates a new conversation in Layercode and retrieves the client session key which is require for the frontend client to connect to your Layercode voice agents.
     onDataMessage: (data) => {
       console.log('Received data msg', data);
     }, // If you return json data objects from your webhook, they are forwarded to the client and send to this callback.
