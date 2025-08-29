@@ -11,7 +11,7 @@
   "dependencies": {
     "@ai-sdk/google": "^1.2.14",
     "@layercode/node-server-sdk": "^1.2.0",
-    "@layercode/react-sdk": "^2.0.0",
+    "@layercode/react-sdk": "^2.0.1",
     "ai": "^4.3.10",
     "next": "15.3.1",
     "react": "^19.0.0",
