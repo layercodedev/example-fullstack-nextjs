@@ -1,73 +1,64 @@
-export const maxDuration = 300; // We set a generous Vercel max function duration to allow for long running agents
 export const dynamic = 'force-dynamic';
 
-import { createGoogleGenerativeAI } from '@ai-sdk/google';
-import { streamText, CoreMessage } from 'ai';
+import { createOpenAI } from '@ai-sdk/openai';
+import { streamText, ModelMessage } from 'ai';
 import { streamResponse, verifySignature } from '@layercode/node-server-sdk';
+import config from '@/layercode-config.json';
 
-const google = createGoogleGenerativeAI({
-  apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
-});
+const openai = createOpenAI({ apiKey: process.env.OPENAI_API_KEY! });
+const sessionMessages = {} as Record<string, ModelMessage[]>;
 
-// In-memory session messages (for demo only; use Redis or DB in production)
-const sessionMessages = {} as Record<string, CoreMessage[]>;
+const SYSTEM_PROMPT = config.prompt;
+const WELCOME_MESSAGE = config.welcome_message;
 
-const SYSTEM_PROMPT =
-  "You are a helpful conversation assistant. You should respond to the user's message in a conversational manner. Your output will be spoken by a TTS model. You should respond in a way that is easy for the TTS model to speak and sound natural.";
-const WELCOME_MESSAGE = 'Welcome to Layercode. How can I help you today?';
-
-// POST request handler for Layercode incoming webhook, per turn of the conversation
 export const POST = async (request: Request) => {
+  // Verify the request is from Layercode
   const requestBody = await request.json();
   const signature = request.headers.get('layercode-signature') || '';
   const secret = process.env.LAYERCODE_WEBHOOK_SECRET || '';
-  const payload = JSON.stringify(requestBody);
-  const isValid = verifySignature({ payload, signature, secret });
+  const isValid = verifySignature({ payload: JSON.stringify(requestBody), signature, secret });
+  if (!isValid) return new Response('Unauthorized', { status: 401 });
 
-  if (!isValid) {
-    console.error('Invalid signature', signature, secret, payload);
-    return new Response('Unauthorized', { status: 401 });
-  }
-
-  console.log('Request body received from Layercode', requestBody);
   const {
-    session_id, // Session ID is unique per conversation. Use this to know which conversation a webhook belongs to.
-    text, // The user's transcribed message query
-    type, // The type of webhook event: message or session.start
+    session_id,
+    text,
+    type,
   } = requestBody;
 
-  // Get or create the message list for this session
-  let messages = sessionMessages[session_id] || [];
-  // Add user message
-  messages.push({ role: 'user', content: [{ type: 'text', text }] });
+  if (!['message', 'session.start', 'session.end', 'session.update'].includes(type)){
+    console.log('type not included!!!', type)
+  }
+
+  const messages = sessionMessages[session_id] || [];
 
   if (type === 'session.start') {
     return streamResponse(requestBody, async ({ stream }) => {
       stream.tts(WELCOME_MESSAGE);
-      messages.push({
-        role: 'assistant',
-        content: [{ type: 'text', text: WELCOME_MESSAGE }],
-      });
+      messages.push({ role: 'assistant', content: WELCOME_MESSAGE });
+      sessionMessages[session_id] = messages;
       stream.end();
     });
   }
 
+  if (type === 'session.update' || type === 'session.end') {
+    return new Response('OK', { status: 200 });
+  }
+
+  messages.push({ role: 'user', content: text });
+
   return streamResponse(requestBody, async ({ stream }) => {
     const { textStream } = streamText({
-      model: google('gemini-2.0-flash-001'),
+      model: openai('gpt-4o-mini'),
       system: SYSTEM_PROMPT,
       messages,
-      onFinish: async ({ response }) => {
-        // After the response has been generated and streamed, finally save it to the message list for this session
-        messages.push(...response.messages);
-        console.log('Current message history for session', session_id, JSON.stringify(messages, null, 2));
+      onFinish: async ({ text }) => {
+        messages.push({ role: 'assistant', content: text });
         sessionMessages[session_id] = messages;
-        stream.end(); // We must call stream.end() here to tell Layercode that the assistant's response has finished
+        stream.end();
       },
     });
-    // At any time, you can also return json objects, which will be forwarded directly to the client. Use this to create dynamic UI that is synchnised with the voice response.
+
     stream.data({ aiIsThinking: true });
-    // Here we return the textStream chunks as SSE messages to Layercode, to be spoken to the user
     await stream.ttsTextStream(textStream);
   });
 };

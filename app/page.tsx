@@ -1,5 +1,7 @@
 'use client';
-import VoiceAgent from './ui/VoiceAgent';
+import dynamic from 'next/dynamic';
+
+const VoiceAgent = dynamic(() => import('./ui/VoiceAgent'), { ssr: false });
 
 export default function Home() {
   return (
