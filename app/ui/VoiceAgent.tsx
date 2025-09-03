@@ -7,7 +7,7 @@ import { MicrophoneButton } from './MicrophoneButton';
 
 export default function VoiceAgent() {
   const { userAudioAmplitude, agentAudioAmplitude, status } = useLayercodeAgent({
-    agentId: process.env.NEXT_PUBLIC_LAYERCODE_AGENT_ID!,
+    agentId: process.env.LAYERCODE_AGENT_ID!,
     authorizeSessionEndpoint: '/api/authorize',
     onDataMessage: (data) => {
       console.log('Received data msg', data);
